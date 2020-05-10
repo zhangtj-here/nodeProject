@@ -1,3 +1,4 @@
+const fs = require("fs");
 const url = require("url");
 let studentDao = require("../dao/studentDao");
 let path = new Map();
@@ -41,4 +42,19 @@ function login(request, response) {
 
 path.set("/login", login);
 
+function getPic(request, response) {
+    let params = url.parse(request.url, true).query;
+    try {
+        let data = fs.readFileSync("./" + params.path);
+        response.writeHead(200);
+        response.write(data);
+        response.end();
+    } catch (e) {
+        response.writeHead(404);
+        response.end();
+    }
+
+}
+
+path.set("/getPic", getPic);
 module.exports.path = path;
