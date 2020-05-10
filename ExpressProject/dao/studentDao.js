@@ -31,10 +31,25 @@ function queryAllStudent(success) {
     connection.end();
 }
 
-
+function queryStudentByStuNum(stuNum, success) {
+    let querySql = "select * from students where stu_num = ?;";
+    let connection = dbutil.createConnection();
+    connection.connect();
+    let params = [stuNum];
+    connection.query(querySql, params,function(error, result) {
+        if (error == null) {
+            console.log(result);
+            success(result);
+        } else {
+            throw new Error(error);
+        }
+    })
+    connection.end();
+}
 
 
 module.exports = {
     "queryAllStudent": queryAllStudent,
-    "insertStudent": insertStudent
+    "insertStudent": insertStudent,
+    "queryStudentByStuNum": queryStudentByStuNum
 }

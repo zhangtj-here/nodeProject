@@ -25,4 +25,20 @@ function insertStudent(request, response) {
 
 path.set("/api/insertStudent", insertStudent);
 
+function login(request, response) {
+    let params = url.parse(request.url, true).query;
+    studentDao.queryStudentByStuNum(params.stuNum, function(result) {
+        if (result && result.length > 0 && result[0].pwd == params.pwd) {
+            //写cookie
+            response.cookie("id", result[0].id);
+            //重定向
+            response.redirect("/api/queryAllStudent");
+        } else {
+            response.redirect("/loginError.html");
+        }
+    })
+}
+
+path.set("/login", login);
+
 module.exports.path = path;
