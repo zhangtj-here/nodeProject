@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "moment": "^2.25.3",
+    "moment": "^2.29.4",
     "mysql": "^2.18.1"
   },
   "devDependencies": {},
